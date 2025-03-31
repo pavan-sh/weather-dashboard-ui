@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_KEY = "9f33858ceb5a6fe4c3bb57d6b491cc5b"; // Get from OpenWeatherMap
+const API_KEY = process.env.NEXT_WEATHER_API_KEY || ""; // Get from OpenWeatherMap
 
 const useWeatherStore = create((set) => ({
   weather: null,
