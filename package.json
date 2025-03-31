@@ -1,5 +1,6 @@
 {
   "name": "weather-dashboard-ui",
+  "description": "A modern responsive weather dashboard interface with real-time temperature visualization, built with Next.js, TypeScript, and Tailwind CSS. Features clean UI components, interactive charts, and location-based weather display with intuitive metrics.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,19 +10,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
+    "@react-three/drei": "^10.0.5",
+    "@react-three/fiber": "^9.1.0",
+    "@types/styled-components": "^5.1.34",
+    "axios": "^1.8.4",
+    "lucide-react": "^0.485.0",
+    "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.2.4"
+    "recharts": "^2.15.1",
+    "styled-components": "^6.1.16",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

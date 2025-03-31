@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sf: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
+  --font-inter: var(--font-inter), -apple-system, sans-serif; /* Fallback to SF if Inter fails */
+  --wa-blue-color: #132960;
 }
 
 @theme inline {
@@ -19,8 +22,32 @@
   }
 }
 
+.font-sans {
+  font-family: var(--font-sf); /* Apple devices get SF */
+}
+
+/* Non-Apple devices get Inter (via the .font-sans class) */
+@supports not (font: -apple-system) {
+  .font-sans {
+    font-family: var(--font-inter);
+  }
+}
+
+/* Preserve Geist for monospace */
+code,
+pre {
+  font-family: var(--font-geist-mono);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Replace Arial/Helvetica with optimized font stack */
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco",
+    var(--font-inter), "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.wa-blue-color {
+  color: var(--wa-blue-color);
 }
