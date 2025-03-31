@@ -18,8 +18,8 @@ const WelcomeCard = () => {
         <p className="leading-7">
           The argument in favor of using filter test goes something like that if
           you use red content in the design process, anytime you reach a review
-          point you'll end up reviewing and requesting the content itself and
-          not the design.
+          point you&apos;ll end up reviewing and requesting the content itself
+          and not the design.
         </p>
       </div>
 
