@@ -57,7 +57,7 @@ const WeatherReport = ({ weatherData }: any) => {
               <div
                 className={`flex items-center font-extrabold pl-2 ${style.temperature}`}
               >
-                {kelvinToCelsius(weatherData?.main?.temp)}
+                {kelvinToCelsius(weatherData?.main?.temp)}&deg;
               </div>
 
               <div
