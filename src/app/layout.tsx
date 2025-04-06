@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({ 
+const inter = Inter({
   variable: "--font-inter", // Define as variable to use in CSS
   subsets: ["latin"],
 });
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable}`}> {/* Apply Inter variable */}
+    <html lang="en" className={`${inter.variable}`}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >

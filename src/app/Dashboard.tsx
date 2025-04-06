@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import style from "../styles/dashboard.module.css";
-
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
 import {
   CircleGauge,
   CloudSun,
@@ -10,8 +12,18 @@ import {
   ThermometerSun,
   Wind,
 } from "lucide-react";
+import {
+  estimateUVIndexFromTime,
+  kelvinToCelsius,
+  metersToKilometers,
+  roundToOneDecimal,
+} from "@/lib/utils";
 
-const WeatherReport: React.FC = () => {
+const WeatherReport = ({ weatherData }: any) => {
+  countries.registerLocale(enLocale);
+
+  const countryName = countries.getName(weatherData?.sys.country, "en");
+
   return (
     <div className="font-sans p-5">
       <h1 className="text-2xl font-bold mb-5">Weather Report</h1>
@@ -22,7 +34,7 @@ const WeatherReport: React.FC = () => {
               <p className="text-sm mb-2">Your Location</p>
               <h3 className={`text-xl font-bold mb-2`}>
                 <span className={`${style.underline}`}>
-                  Alexandria, Los Angeles
+                  {weatherData?.name}, {countryName ?? ""}
                 </span>
               </h3>
               <p className="text-xs pt-[35px]">
@@ -34,7 +46,9 @@ const WeatherReport: React.FC = () => {
                 <div className="pr-1">
                   <Locate height={14} width={14} />
                 </div>
-                <div>Alexandria, Los Angeles</div>
+                <div>
+                  {weatherData?.coord.lat}, {weatherData?.coord.lon}
+                </div>
               </div>
             </div>
             <div
@@ -43,7 +57,7 @@ const WeatherReport: React.FC = () => {
               <div
                 className={`flex items-center font-extrabold pl-2 ${style.temperature}`}
               >
-                12&deg;
+                {kelvinToCelsius(weatherData?.main?.temp)}
               </div>
 
               <div
@@ -54,7 +68,10 @@ const WeatherReport: React.FC = () => {
                     <Droplet height={15} width={15} />
                   </div>
                   <div className="text-xs mr-2">
-                    <span className="text-lg font-bold">10</span> mm
+                    <span className="text-lg font-bold pr-1">
+                      {weatherData?.main?.pressure}
+                    </span>{" "}
+                    hPa
                   </div>
                 </div>
                 <div className="flex items-center border rounded-full p-1 px-5">
@@ -62,7 +79,10 @@ const WeatherReport: React.FC = () => {
                     <Wind height={15} width={15} />
                   </div>
                   <div className="text-xs mr-2">
-                    <span className="text-lg font-bold">04</span> mhp
+                    <span className="text-lg font-bold pr-1">
+                      {roundToOneDecimal(weatherData?.wind?.speed)}
+                    </span>
+                    m/s
                   </div>
                 </div>
               </div>
@@ -74,9 +94,14 @@ const WeatherReport: React.FC = () => {
             <div className="bg-indigo-100 p-2.5 rounded-lg flex-1 flex flex-col justify-center items-center">
               <div className="flex justify-between w-full">
                 <div className=" m-0 w-1/2">
-                  <div className="text-6xl font-semibold">12.69</div>
-                  <div style={{ color: "#A5A8E6" }} className="text-sm">
-                    5 minutes ago
+                  <div className="text-6xl font-semibold">
+                    {roundToOneDecimal(weatherData?.main?.humidity)}
+                  </div>
+                  <div
+                    style={{ color: "#A5A8E6" }}
+                    className="text-md font-bold pl-2"
+                  >
+                    %
                   </div>
                 </div>
                 <div className="flex flex-col items-center self-center">
@@ -123,9 +148,14 @@ const WeatherReport: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <div className="text-4xl font-normal m-0">03.58</div>
-                  <div style={{ color: "#A5A8E6" }} className="text-sm">
-                    5 minutes ago
+                  <div className="text-4xl font-normal m-0">
+                    {roundToOneDecimal(weatherData?.main?.pressure)}
+                  </div>
+                  <div
+                    style={{ color: "#A5A8E6" }}
+                    className="text-sm pl-2 font-bold"
+                  >
+                    hPa
                   </div>
                 </div>
                 <div className="flex flex-col items-center self-center">
@@ -175,9 +205,14 @@ const WeatherReport: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-4xl font-normal m-0">23.79</span>
-                  <div style={{ color: "#A5A8E6" }} className="text-sm">
-                    5 minutes ago
+                  <span className="text-4xl font-normal m-0">
+                    {estimateUVIndexFromTime(weatherData?.dt)}
+                  </span>
+                  <div
+                    style={{ color: "#A5A8E6" }}
+                    className="text-sm font-bold pl-1"
+                  >
+                    (0-11)
                   </div>
                 </div>
                 <div className="flex flex-col items-center self-center">
@@ -191,9 +226,14 @@ const WeatherReport: React.FC = () => {
             <div className="bg-indigo-100 p-2.5 rounded-lg flex-1 flex flex-col justify-center items-center">
               <div className="flex w-full justify-between">
                 <div className="text-sm m-0 w-1/2">
-                  <div className="text-6xl font-semibold m-0">15.54</div>
-                  <div style={{ color: "#A5A8E6" }} className="text-sm">
-                    5 minutes ago
+                  <div className="text-6xl font-semibold m-0">
+                    {metersToKilometers(weatherData?.visibility)}
+                  </div>
+                  <div
+                    style={{ color: "#A5A8E6" }}
+                    className="text-md pl-2 font-bold"
+                  >
+                    Km
                   </div>
                 </div>
                 <div className="flex flex-col items-center self-center">
